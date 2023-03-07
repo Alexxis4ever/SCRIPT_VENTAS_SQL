@@ -40,6 +40,7 @@ CREATE TABLE PRODUCTO (
 )
 --TABLA TELEFONO-PROVEEDOR
 CREATE TABLE TEL_PRO (
+ idTelPro varchar(10) Primary Key,
  idProveedor_fk varchar(15),
  telefono varchar(30) not null,
  foreign key (idProveedor_fk) references PROVEEDOR (idProveedor)
@@ -70,19 +71,22 @@ CREATE TABLE FACTURA_COMPRA (
 )
 --TABLA PRODUCTO-FACTURA_VENTA
 CREATE TABLE PROD_FAC_V (
+  Primary key (codP_fk, nFacturaV_fk),
   nFacturaV_fk int identity,
   codP_fk varchar(15),
+  vTotal float null,
+  cant int not null,
   foreign key (nFacturaV_fk) references FACTURA_VENTA (nFacturaV),
   foreign key (codP_fk) references PRODUCTO (codP),
-  primary key (codP_fk, nFacturaV_fk)
 )
 --TABLA PRODUCTO-FACTURA_COMPRA
 CREATE TABLE PROD_FAC_C (
-  costo float null,
-  cant int not null,
+  Primary key (nFacturaC_fk,codP_fk),
   nFacturaC_fk varchar(15),
   codP_fk varchar(15),
+  costo float null,
+  cant int not null,
+  vTotal float null,
   foreign key (nFacturaC_fk) references FACTURA_COMPRA (nFacturaC),
-  foreign key (codP_fk) references PRODUCTO (codP),
-  primary key (nFacturaC_fk,codP_fk) 
+  foreign key (codP_fk) references PRODUCTO (codP), 
 )
